@@ -1,0 +1,131 @@
+---
+import {
+  XLogo, InstagramLogo, LinkedinLogo, GraduationCap, Path, Sparkle, DeviceMobile, Question,
+  RocketLaunch, Buildings, ArrowSquareOut, ShieldCheck, FileText, Cookie, ArrowUp,
+} from '@phosphor-icons/react';
+import Logo from './Logo.astro';
+import { site } from '../data/site';
+
+const groups = [
+  {
+    title: 'Explore',
+    links: [
+      { label: 'How it works', href: '/#how-it-works', Icon: Path },
+      { label: 'Features', href: '/#features', Icon: Sparkle },
+      { label: 'Get the app', href: '/#get-app', Icon: DeviceMobile },
+      { label: 'FAQ', href: '/#faq', Icon: Question },
+    ],
+  },
+  {
+    title: 'Get started',
+    links: [
+      { label: 'Join early access', href: `/${site.links.earlyAccess}`, Icon: RocketLaunch },
+      { label: 'Bring it to my school', href: `/${site.links.bringToSchool}`, Icon: Buildings },
+      { label: 'Go to app', href: site.links.app, Icon: ArrowSquareOut },
+    ],
+  },
+  {
+    title: 'Legal',
+    links: [
+      { label: 'Privacy Policy', href: site.links.privacy, Icon: ShieldCheck },
+      { label: 'Terms of Service', href: site.links.terms, Icon: FileText },
+      { label: 'Cookie Settings', href: site.links.cookies, Icon: Cookie },
+    ],
+  },
+];
+const social = [
+  { label: 'X', href: site.links.x, Icon: XLogo },
+  { label: 'Instagram', href: site.links.instagram, Icon: InstagramLogo },
+  { label: 'LinkedIn', href: site.links.linkedin, Icon: LinkedinLogo },
+];
+const year = new Date().getFullYear();
+---
+<footer class="wrap pb-6 sm:pb-8">
+  <div data-reveal class="relative isolate overflow-hidden rounded-[28px] bg-indigo-deep text-white sm:rounded-[36px]">
+    <!-- faint dot grid that fades out downward -->
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(rgba(255,255,255,0.08)_1px,transparent_1.2px)] [background-size:24px_24px] [mask-image:linear-gradient(to_bottom,#000,transparent_70%)]"></div>
+    <!-- soft brand glow -->
+    <div aria-hidden="true" class="pointer-events-none absolute -top-40 -right-24 -z-10 size-[520px] rounded-full bg-indigo/40 blur-[110px]"></div>
+
+    <div class="px-6 pt-10 sm:px-10 sm:pt-14 lg:px-[clamp(40px,4.5vw,72px)] lg:pt-[72px]">
+      <div class="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-[1.3fr_repeat(3,minmax(0,1fr))] lg:gap-x-10">
+        <!-- Brand -->
+        <div class="col-span-2 lg:col-span-1">
+          <Logo class="!text-white" />
+          <p class="mt-5 max-w-[19em] text-[17px] leading-normal text-white/70">{site.tagline}</p>
+          <p class="mt-5 inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 text-[13px] font-medium text-white ring-1 ring-white/15">
+            <GraduationCap weight="fill" class="size-4" aria-hidden="true" />
+            Piloting at FOCIT
+          </p>
+          <ul class="mt-7 flex list-none gap-3 p-0" aria-label="Social media">
+            {social.map(({ label, href, Icon }) => (
+              <li>
+                <a
+                  href={href}
+                  aria-label={`Campus Update on ${label}`}
+                  class="grid size-11 place-items-center rounded-full bg-white/10 text-white ring-1 ring-white/15 transition-colors hover:bg-indigo hover:ring-indigo"
+                >
+                  <Icon size={20} aria-hidden="true" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Link groups -->
+        {groups.map((g) => (
+          <nav aria-label={g.title} class={g.title === 'Legal' ? 'col-span-2 sm:col-span-1' : ''}>
+            <h2 class="font-sans text-[13px] leading-none font-semibold tracking-[0.08em] text-white/50 uppercase">{g.title}</h2>
+            <ul class="mt-5 grid list-none gap-0.5 p-0">
+              {g.links.map(({ label, href, Icon }) => (
+                <li>
+                  <a class="group inline-flex min-h-10 items-center gap-2.5 text-[15px] leading-tight font-medium text-white/85 no-underline transition-colors hover:text-white" href={href}>
+                    <Icon class="size-[18px] text-white/45 transition-colors group-hover:text-[#A5A0FF]" aria-hidden="true" />
+                    <span>{label}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ))}
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="mt-12 flex flex-col gap-4 border-t border-white/10 py-6 sm:flex-row sm:items-center sm:justify-between">
+        <p class="text-sm text-white/60">© {year} Campus Update. All rights reserved.</p>
+        <a
+          href="#top"
+          class="inline-flex w-fit items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white no-underline ring-1 ring-white/15 transition-colors hover:bg-white hover:text-indigo-deep"
+        >
+          Back to top
+          <ArrowUp weight="bold" class="size-4" aria-hidden="true" />
+        </a>
+      </div>
+    </div>
+
+    <!-- Oversized wordmark: faint outline + a bright line of light that sweeps through the letters, and follows the cursor -->
+    <div data-wordmark aria-hidden="true" data-reveal="fade" style="--i:3" class="relative -mt-2 -mb-[0.2em] select-none">
+      <div class="pointer-events-none absolute inset-x-[8%] bottom-0 -z-10 h-[70%] rounded-full bg-[radial-gradient(closest-side,rgba(99,89,240,0.55),transparent)] blur-2xl"></div>
+      <p class="wordmark wordmark-base">Campus Update</p>
+      <p class="wordmark wordmark-glow" data-wordmark-glow>Campus Update</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Spotlight on the wordmark follows the cursor (mouse only; reduced motion keeps it static).
+  const wm = document.querySelector<HTMLElement>('[data-wordmark]');
+  const glow = wm?.querySelector<HTMLElement>('[data-wordmark-glow]');
+  if (wm && glow && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    wm.addEventListener('pointermove', (e) => {
+      if (e.pointerType !== 'mouse') return;
+      const r = glow.getBoundingClientRect();
+      glow.style.setProperty('--mx', `${e.clientX - r.left}px`);
+      glow.style.setProperty('--my', `${e.clientY - r.top}px`);
+    });
+    wm.addEventListener('pointerleave', () => {
+      glow.style.removeProperty('--mx');
+      glow.style.removeProperty('--my');
+    });
+  }
+</script>
