@@ -1,0 +1,8 @@
+---
+interface Props { class?: string }
+const { class: cls = '' } = Astro.props;
+---
+<a class={`inline-flex min-h-11 items-center gap-1.5 text-[22px] leading-none font-medium text-ink no-underline ${cls}`} href="/" aria-label="Campus Update home">
+  <img src="/logo-mark.svg" alt="" width="34" height="34" class="size-[34px]" />
+  <span>Campus Update</span>
+</a>
