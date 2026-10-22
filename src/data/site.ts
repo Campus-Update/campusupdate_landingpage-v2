@@ -78,3 +78,11 @@ export const earlyAccess = {
     'Schools publish for free, always clearly labelled',
   ],
 };
+
+// Sponsor shown in the strip under the pillars. Set `href` to link the logo (leave null for no link).
+export const sponsor = {
+  label: 'Sponsored by',
+  name: 'Divaca Tech',
+  logo: '/divaca-tech.png',
+  href: null as string | null,
+};
