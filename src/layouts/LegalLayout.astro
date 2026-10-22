@@ -1,0 +1,63 @@
+---
+import { EnvelopeSimple } from '@phosphor-icons/react';
+import Layout from './Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { badgeVariants } from '@/components/ui/badge';
+import { site } from '../data/site';
+import { legalUpdated, type Section } from '../data/legal';
+interface Props { title: string; intro: string; sections: Section[] }
+const { title, intro, sections } = Astro.props;
+---
+<Layout title={`${title} | Campus Update`} description={intro}>
+  <Header />
+  <main id="main" class="wrap pt-[clamp(40px,7vw,96px)] pb-[clamp(64px,9vw,120px)]">
+    <header class="max-w-[44rem]">
+      <p class={badgeVariants({ variant: 'tag' })}>Legal</p>
+      <h1 class="mt-5 text-[clamp(36px,5.5vw,68px)] leading-[1.05] text-ink">{title}</h1>
+      <p class="mt-5 text-[18px] leading-[1.6] text-gray">{intro}</p>
+      <p class="mt-4 text-[14px] text-gray">Last updated {legalUpdated}</p>
+    </header>
+
+    <div class="mt-12 grid gap-12 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-20">
+      <nav aria-label="On this page" class="hidden lg:block">
+        <ul class="sticky top-28 m-0 grid list-none gap-1 p-0 text-[14px]">
+          {sections.map((s, i) => (
+            <li>
+              <a href={`#${s.id}`} class="flex min-h-9 items-center gap-3 rounded-lg px-3 text-gray no-underline transition-colors hover:bg-lavender hover:text-indigo">
+                <span class="w-5 text-[12px] tabular-nums">{String(i + 1).padStart(2, '0')}</span>{s.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <article class="max-w-[44rem]">
+        {sections.map((s, i) => (
+          <section id={s.id} class="border-t border-ink/10 py-9 first:border-t-0 first:pt-0">
+            <h2 class="flex items-baseline gap-4 text-[clamp(22px,2.4vw,28px)] leading-tight text-ink">
+              <span class="font-display text-[15px] text-indigo tabular-nums">{String(i + 1).padStart(2, '0')}</span>{s.title}
+            </h2>
+            <div class="mt-4 grid gap-4 text-[17px] leading-[1.7] text-gray">
+              {s.body.map((b) => 'p' in b
+                ? <p class="m-0">{b.p}</p>
+                : <ul class="m-0 grid gap-2.5 pl-5 marker:text-indigo">{b.ul.map((li) => <li>{li}</li>)}</ul>)}
+            </div>
+          </section>
+        ))}
+
+        <div class="mt-6 flex flex-col gap-3 rounded-[28px] bg-lavender p-7 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p class="m-0 font-display text-[20px] text-ink">Questions about this page?</p>
+            <p class="m-0 mt-1 text-[16px] text-gray">Write to us and a real person will reply.</p>
+          </div>
+          <a href={`mailto:${site.contactEmail}`} class="inline-flex min-h-11 items-center gap-2 font-medium text-indigo no-underline hover:underline">
+            <EnvelopeSimple weight="bold" aria-hidden="true" />{site.contactEmail}
+          </a>
+        </div>
+      </article>
+    </div>
+  </main>
+  <div aria-hidden="true" class="h-[clamp(32px,4vw,64px)]"></div>
+  <Footer />
+</Layout>
