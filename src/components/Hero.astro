@@ -1,0 +1,38 @@
+---
+import { Image } from 'astro:assets';
+import { ArrowRight } from '@phosphor-icons/react';
+import { buttonVariants } from '@/components/ui/button';
+import { site } from '../data/site';
+import dashboard from '../assets/img/hero-dashboard.jpg';
+---
+<section class="mt-6 grid overflow-x-clip grid-cols-1 items-stretch lg:min-h-[min(840px,calc(100svh-88px))] lg:grid-cols-2">
+  <div class="self-center px-[var(--gutter)] pt-8 pb-10 lg:max-w-[calc(50vw+80px)] lg:py-12 lg:pr-8 lg:pl-[max(var(--gutter),calc((100vw_-_var(--container))/2))]">
+    <h1 style="--i:0" class="rise max-w-[11.5ch] text-[clamp(40px,4.6vw,72px)] leading-[1.1] tracking-[-0.03em]">
+      Everything important on campus. Verified.
+    </h1>
+    <p style="--i:1" class="rise mt-7 max-w-[34em] text-[clamp(17px,1.35vw,21px)] leading-[1.75]">
+      Official news, urgent alerts, events and the academic calendar, straight from your school to your phone.
+    </p>
+    <div style="--i:2" class="rise mt-10 flex flex-wrap items-center gap-5">
+      <a class={buttonVariants({ variant: 'brand', size: 'lg' })} href={site.links.earlyAccess}>
+        Get early access
+        <ArrowRight weight="bold" aria-hidden="true" />
+      </a>
+      <span class="hidden h-7 w-px bg-[#d0d5dd] sm:block" aria-hidden="true"></span>
+      <a class={buttonVariants({ variant: 'soft', size: 'lg' })} href={site.links.bringToSchool}>
+        Bring it to my school
+      </a>
+    </div>
+  </div>
+  <div class="rise-right relative ml-[var(--gutter)] aspect-[4/3] overflow-hidden rounded-tl-3xl lg:ml-0 lg:aspect-auto lg:rounded-none">
+    <Image
+      src={dashboard}
+      alt="The Campus Update school admin dashboard, showing registered students and staff and recent activity."
+      widths={[800, 1200, 1600, 2000]}
+      sizes="(max-width: 1024px) 100vw, 50vw"
+      loading="eager"
+      fetchpriority="high"
+      class="size-full origin-bottom-right scale-[1.04] object-cover object-left-top"
+    />
+  </div>
+</section>

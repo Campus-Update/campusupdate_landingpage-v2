@@ -1,0 +1,22 @@
+---
+import { Lightning } from '@phosphor-icons/react';
+import { badgeVariants } from '@/components/ui/badge';
+
+interface Props {
+  tag: string;
+  title: string;
+  /** "center" (problem, features, FAQ) or "left" (how it works) - follows the design. */
+  align?: 'center' | 'left';
+  titleClass?: string;
+  titleId?: string;
+}
+const { tag, title, align = 'center', titleClass = '', titleId } = Astro.props;
+const centered = align === 'center';
+---
+<div data-stagger="110" class={`flex flex-col gap-[18px] ${centered ? 'items-center text-center' : 'items-start text-left'}`}>
+  <p data-reveal class={badgeVariants({ variant: 'tag' })}>
+    <Lightning weight="fill" aria-hidden="true" />
+    {tag}
+  </p>
+  <h2 data-reveal id={titleId} class={`section-title ${centered ? 'mx-auto' : ''} ${titleClass}`}>{title}</h2>
+</div>
