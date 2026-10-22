@@ -1,0 +1,31 @@
+---
+import { ArrowRight, BellRinging } from '@phosphor-icons/react';
+import { badgeVariants } from '@/components/ui/badge';
+import EarlyAccessForm from './EarlyAccessForm';
+import { earlyAccess } from '../data/site';
+---
+<section class="wrap pb-[clamp(56px,7vw,100px)]" id="early-access" aria-labelledby="early-access-title">
+  <div data-reveal class="relative isolate grid grid-cols-1 items-center gap-10 overflow-hidden rounded-[28px] bg-[linear-gradient(135deg,#F6F5FF_0%,#DAD7FB_48%,#7C74F0_100%)] p-4 pt-8 sm:rounded-[36px] sm:p-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:p-[clamp(40px,4.5vw,72px)]">
+    <div class="px-2 sm:px-0">
+      <p class={`${badgeVariants({ variant: 'outline' })} h-9 rounded-lg border-0 bg-white px-3.5 text-[13px] font-medium tracking-wide text-ink uppercase`}>
+        <BellRinging weight="bold" aria-hidden="true" />
+        {earlyAccess.badge}
+      </p>
+      <h2 id="early-access-title" class="mt-6 max-w-[10em] text-[clamp(40px,5vw,72px)] leading-[1.02] tracking-[-0.03em] text-ink">
+        {earlyAccess.title}
+      </h2>
+      <p class="mt-5 max-w-[30em] text-lg leading-relaxed text-ink">{earlyAccess.text}</p>
+      <ul class="mt-6 grid list-none gap-2.5 p-0 text-[clamp(16px,1.3vw,19px)] leading-snug text-ink">
+        {earlyAccess.points.map((point) => (
+          <li class="flex items-start gap-3">
+            <ArrowRight weight="bold" size={18} className="mt-1 shrink-0" aria-hidden="true" />
+            <span>{point}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div class="rounded-3xl bg-white/90 p-5 shadow-[0_30px_60px_-30px_rgba(32,28,92,0.55)] ring-1 ring-white/70 backdrop-blur-md sm:p-8">
+      <EarlyAccessForm client:visible />
+    </div>
+  </div>
+</section>
