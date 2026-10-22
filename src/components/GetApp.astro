@@ -1,0 +1,53 @@
+---
+import { ArrowRight, AppleLogo, GooglePlayLogo, DeviceMobile } from '@phosphor-icons/react';
+import { badgeVariants } from '@/components/ui/badge';
+import { buttonVariants } from '@/components/ui/button';
+import GetAppPhone from './GetAppPhone';
+import { site } from '../data/site';
+
+const stores = [
+  { name: 'App Store', kicker: 'Download on the', href: site.links.appStore, Icon: AppleLogo },
+  { name: 'Google Play', kicker: 'Get it on', href: site.links.playStore, Icon: GooglePlayLogo },
+];
+const storeBase = 'inline-flex h-14 min-w-[10.5rem] items-center gap-3 rounded-[14px] bg-ink px-4 text-white no-underline';
+---
+<section class="wrap py-[clamp(48px,6vw,90px)]" id="get-app" aria-labelledby="get-app-title">
+  <div class="grid grid-cols-1 items-center gap-10 overflow-hidden rounded-[28px] bg-lavender p-6 sm:rounded-[36px] sm:p-10 lg:grid-cols-2 lg:gap-16 lg:p-[clamp(40px,4.5vw,72px)]">
+    <div data-reveal="left">
+      <p class={badgeVariants({ variant: 'tag' })}>
+        <DeviceMobile weight="fill" aria-hidden="true" />
+        Get the app
+      </p>
+      <h2 id="get-app-title" class="mt-[18px] max-w-[11em] text-[clamp(32px,3.6vw,56px)] leading-[1.08] tracking-[-0.03em] text-ink">
+        Campus Update, in your pocket.
+      </h2>
+      <p class="mt-5 max-w-[30em] text-lg leading-[1.7] text-gray">
+        Open the app to read official news, urgent alerts, events and your academic calendar. Everything labelled, everything from your school.
+      </p>
+
+      <div class="mt-8">
+        <a class={buttonVariants({ variant: 'brand', size: 'lg' })} href={site.links.app}>
+          Open the app
+          <ArrowRight weight="bold" aria-hidden="true" />
+        </a>
+      </div>
+      <div class="mt-4 flex flex-wrap items-center gap-3">
+        {stores.map(({ name, kicker, href, Icon }) =>
+          href ? (
+            <a class={`${storeBase} transition-opacity hover:opacity-90`} href={href}>
+              <Icon weight="fill" class="size-7" aria-hidden="true" />
+              <span class="leading-tight"><span class="block text-[11px] opacity-80">{kicker}</span><span class="block text-[16px] font-semibold">{name}</span></span>
+            </a>
+          ) : (
+            <span class={`${storeBase} cursor-not-allowed !bg-[#5C5B6A]`} role="img" aria-label={`${name}: coming soon`}>
+              <Icon weight="fill" class="size-7" aria-hidden="true" />
+              <span class="leading-tight"><span class="block text-[11px]">Coming soon</span><span class="block text-[16px] font-semibold">{name}</span></span>
+            </span>
+          ),
+        )}
+      </div>
+    </div>
+
+    <div data-reveal="right" style="--i:1"><GetAppPhone client:visible /></div>
+  </div>
+</section>
