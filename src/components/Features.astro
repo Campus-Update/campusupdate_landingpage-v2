@@ -1,0 +1,14 @@
+---
+import { getImage } from 'astro:assets';
+import FeatureTabs from './FeatureTabs';
+import SectionHeading from './SectionHeading.astro';
+import { features, site } from '../data/site';
+import photo from '../assets/img/app-thumb-students.jpg';
+
+// Optimised photo for the mock app screens (handed to the React island as a plain URL).
+const img = await getImage({ src: photo, width: 640, format: 'webp' });
+---
+<section class="wrap py-[clamp(56px,8vw,120px)]" id="features">
+  <SectionHeading tag="Features" title="Never miss it. Never wonder if it’s real." titleClass="max-w-[15em]" />
+  <div data-reveal><FeatureTabs client:visible features={features} photo={img.src} ctaHref={site.links.earlyAccess} /></div>
+</section>
