@@ -1,0 +1,39 @@
+---
+import { ArrowRight, House } from '@phosphor-icons/react';
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { buttonVariants } from '@/components/ui/button';
+import { badgeVariants } from '@/components/ui/badge';
+import { site } from '../data/site';
+---
+<Layout title="Page not found | Campus Update" description="This page doesn’t exist." noindex>
+  <Header />
+  <main id="main" class="wrap relative isolate flex min-h-[70svh] flex-col items-center justify-center py-[clamp(56px,10vw,140px)] text-center">
+    <!-- soft brand glow behind the number -->
+    <div aria-hidden="true" class="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[420px] w-[min(900px,100%)] -translate-x-1/2 -translate-y-[60%] bg-[radial-gradient(ellipse_at_center,#EEEDFD_0%,rgba(238,237,253,0)_70%)]"></div>
+
+    <p class={badgeVariants({ variant: 'tag' })}>Error 404</p>
+
+    <p aria-hidden="true" class="mt-6 font-display text-[clamp(110px,22vw,260px)] font-medium leading-[0.9] tracking-[-0.04em] text-indigo">404</p>
+
+    <h1 class="mt-6 max-w-[16em] text-[clamp(30px,4vw,56px)] leading-[1.08] text-ink">
+      This page was never published.
+    </h1>
+    <p class="mt-5 max-w-[30em] text-[18px] leading-[1.6] text-gray">
+      The link may be broken or the page may have moved. Head back home to see what’s verified and live.
+    </p>
+
+    <div class="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
+      <a class={buttonVariants({ variant: 'brand', size: 'lg' })} href="/">
+        <House weight="bold" aria-hidden="true" />
+        Back to home
+      </a>
+      <a class={buttonVariants({ variant: 'outline', size: 'lg' })} href={`/${site.links.earlyAccess}`}>
+        Get early access
+        <ArrowRight weight="bold" aria-hidden="true" />
+      </a>
+    </div>
+  </main>
+  <Footer />
+</Layout>
