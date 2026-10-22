@@ -1,0 +1,9 @@
+---
+import FaqAccordion from './FaqAccordion';
+import SectionHeading from './SectionHeading.astro';
+import { faqs } from '../data/site';
+---
+<section class="wrap py-[clamp(56px,7vw,100px)]" id="faq">
+  <SectionHeading tag="FAQ" title="Frequently asked questions about Campus Update" titleClass="max-w-[15em] font-bold" />
+  <div data-reveal><FaqAccordion client:visible faqs={faqs} /></div>
+</section>
