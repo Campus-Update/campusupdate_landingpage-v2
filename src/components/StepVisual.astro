@@ -1,0 +1,58 @@
+---
+import StepDemo from './StepDemo';
+import { SealCheck, WarningOctagon, FlagBanner, Warning, ShareNetwork } from '@phosphor-icons/react';
+
+/** App-UI illustration for each "How it works" step. Pure markup, no images, no JS. */
+interface Props { step: 1 | 2 | 3 | 4; label: string }
+/* Steps 1–2 are tappable (StepDemo island); steps 3–4 are static illustrations. */
+const { step, label } = Astro.props;
+const card = 'rounded-2xl bg-white shadow-[0_18px_36px_-18px_rgba(32,28,92,0.45)] ring-1 ring-black/5';
+---
+{step <= 2 ? (
+  <StepDemo client:visible step={step as 1 | 2} label={label} />
+) : (
+<div
+  role="img"
+  aria-label={label}
+  class="relative isolate flex w-full items-center justify-center overflow-hidden rounded-[28px] bg-[linear-gradient(165deg,#F4F3FF_0%,#DDDAFB_100%)] px-5 py-8 min-[560px]:aspect-[3/4] min-[560px]:py-5"
+>
+  <div aria-hidden="true" class="absolute -bottom-16 left-1/2 -z-10 h-48 w-[120%] -translate-x-1/2 rounded-full bg-indigo/25 blur-2xl"></div>
+
+  {step === 3 && (
+    <div aria-hidden="true" class="relative w-full max-w-[260px] select-none">
+      <div class="mx-3 -mb-3 h-6 rounded-t-2xl bg-white/60"></div>
+      <div class={`${card} relative p-3.5 transition-[translate] duration-500 ease-[var(--ease-out)] group-hover/step:-translate-y-2`}>
+        <div class="flex items-center gap-2">
+          <img src="/logo-mark.svg" alt="" class="size-6 rounded-md" />
+          <span class="text-[12px] font-medium text-gray">Campus Update</span>
+          <span class="ml-auto text-[11px] text-gray">now</span>
+        </div>
+        <p class="mt-2 flex items-center gap-1.5 text-[14px] font-semibold text-ink"><WarningOctagon weight="fill" class="size-4 text-[#B42318]" />Urgent: exam timetable released</p>
+        <p class="mt-0.5 text-[13px] leading-snug text-gray">Tap to read the full notice from your school.</p>
+      </div>
+      <div class={`${card} mt-3 p-3.5 opacity-70 transition-[translate,opacity] duration-500 ease-[var(--ease-out)] group-hover/step:translate-y-2 group-hover/step:opacity-90`}>
+        <div class="flex items-center gap-2">
+          <img src="/logo-mark.svg" alt="" class="size-6 rounded-md" />
+          <span class="text-[12px] font-medium text-gray">Campus Update</span>
+          <span class="ml-auto text-[11px] text-gray">2h ago</span>
+        </div>
+        <p class="mt-2 flex items-center gap-1.5 text-[14px] font-semibold text-ink"><FlagBanner weight="fill" class="size-4 text-[#93370D]" />Important: registration closes Friday</p>
+      </div>
+    </div>
+  )}
+
+  {step === 4 && (
+    <div aria-hidden="true" class="w-full max-w-[260px] select-none">
+      <div class={`${card} p-4 transition-[translate] duration-500 ease-[var(--ease-out)] group-hover/step:-translate-y-1.5`}>
+        <span class="inline-flex items-center gap-1 rounded-full bg-[#E4F5EA] px-2 py-0.5 text-[11px] font-semibold text-[#177A3C]"><SealCheck weight="fill" class="size-3.5" />Official</span>
+        <p class="mt-2.5 text-[15px] leading-snug font-semibold text-ink">Hostel allocation list is out</p>
+        <p class="mt-1 text-[12px] text-gray">Published by FOCIT Admin</p>
+      </div>
+      <div class="mt-3 -rotate-2 rounded-2xl border border-dashed border-gray/40 bg-white/50 p-4 opacity-80 transition-[rotate,translate,opacity] duration-500 ease-[var(--ease-out)] group-hover/step:-rotate-6 group-hover/step:translate-y-2 group-hover/step:opacity-50">
+        <span class="inline-flex items-center gap-1 rounded-full bg-secondary px-2 py-0.5 text-[11px] font-semibold text-[#344054]"><Warning weight="fill" class="size-3.5" />No source</span>
+        <p class="mt-2.5 flex items-center gap-1.5 text-[13px] leading-snug text-gray"><ShareNetwork class="size-4 shrink-0" />“Forward this to 10 groups…”</p>
+      </div>
+    </div>
+  )}
+</div>
+)}

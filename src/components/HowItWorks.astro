@@ -1,0 +1,25 @@
+---
+import StepVisual from './StepVisual.astro';
+import SectionHeading from './SectionHeading.astro';
+import { steps } from '../data/site';
+
+const labels = [
+  'Admin screen: a verified school admin writes an announcement and taps Publish.',
+  'Targeting screen: the announcement is sent to one faculty, department and levels.',
+  'Phone lock screen showing an urgent push notification from Campus Update.',
+  'An Official-labelled school notice next to an unverified forwarded message.',
+];
+---
+<section class="wrap py-[clamp(48px,6vw,90px)]" id="how-it-works">
+  <SectionHeading tag="How it works" title="From the school office to your phone." align="left" titleClass="max-w-[11em]" />
+  <ol data-stagger="130" class="mt-14 grid list-none grid-cols-1 items-start gap-4 p-0 min-[560px]:grid-cols-2 lg:grid-cols-4 lg:gap-7">
+    {steps.map((s, i) => (
+      <li data-reveal class="group/step lg:even:mt-14">
+        <span class="block font-display text-5xl leading-none tracking-[-0.04em] text-transparent transition-colors delay-500 duration-1000 [-webkit-text-stroke:1.2px_#c9c7f5] group-[.is-visible]/step:text-[#E6E4FC]" aria-hidden="true">{s.n}</span>
+        <h3 class="mt-1 text-[26px] leading-[1.15]">{s.title}</h3>
+        <p class="mt-1.5 text-base leading-normal text-gray">{s.text}</p>
+        <div class="mt-[18px]"><StepVisual step={(i + 1) as 1 | 2 | 3 | 4} label={labels[i]} /></div>
+      </li>
+    ))}
+  </ol>
+</section>
