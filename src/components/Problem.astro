@@ -1,0 +1,20 @@
+---
+import ProblemVisual from './ProblemVisual.astro';
+import SectionHeading from './SectionHeading.astro';
+import { problems } from '../data/site';
+---
+<section class="wrap pt-[clamp(64px,8vw,110px)] pb-[clamp(48px,6vw,90px)]" id="problem">
+  <SectionHeading tag="The problem" title="Campus news shouldn’t travel by forwarded screenshot." titleClass="max-w-[15em]" />
+  <ul data-stagger="110" class="mt-14 grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-2 xl:grid-cols-4 xl:gap-[31px]">
+    {problems.map((p) => (
+      <li data-reveal class="group/card flex min-h-0 flex-col justify-between gap-6 rounded-[20px] bg-lavender p-7 sm:min-h-[340px] sm:gap-6 xl:min-h-[470px]">
+        <span class="font-display text-6xl leading-none tracking-[-0.04em] text-transparent [-webkit-text-stroke:1.5px_var(--indigo)]" aria-hidden="true">{p.n}</span>
+        <ProblemVisual n={p.n} />
+        <div>
+          <h3 class="mb-3 text-[26px] leading-[1.15]">{p.title}</h3>
+          <p class="text-base leading-[1.55] text-gray">{p.text}</p>
+        </div>
+      </li>
+    ))}
+  </ul>
+</section>
