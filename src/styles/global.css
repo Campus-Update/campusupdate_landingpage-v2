@@ -1,0 +1,195 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* ---------- Fonts (self-hosted woff2, converted from the project font files) ---------- */
+@font-face{font-family:'Neue Power';src:url('/fonts/NeuePowerTrial-Medium.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Neue Power';src:url('/fonts/NeuePowerTrial-Bold.woff2') format('woff2');font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:'Archivo';src:url('/fonts/Archivo-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Archivo';src:url('/fonts/Archivo-Medium.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Archivo';src:url('/fonts/Archivo-SemiBold.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap}
+
+/* ---------- Brand tokens (sampled from Landing page.svg) ---------- */
+:root{
+  --indigo:#4F46E5;
+  --indigo-deep:#201C5C;
+  /* motion tokens */
+  --ease-out:cubic-bezier(.22,1,.36,1);
+  --dur-fast:150ms;
+  --dur-base:300ms;
+  --dur-slow:650ms;
+  --lavender:#EEEDFD;
+  --ink:#0F0F0F;
+  --ink-strong:#101828;
+  --gray:#5B6577;
+  --surface:#F5F5F5;
+  --white:#fff;
+
+  --grad-primary:linear-gradient(180deg,var(--indigo) 0%,var(--indigo-deep) 100%);
+
+  --f-display:'Neue Power','Archivo',system-ui,sans-serif;
+  --f-body:'Archivo',system-ui,-apple-system,'Segoe UI',sans-serif;
+
+  --container:1528px;
+  --gutter:clamp(20px,5.8vw,100px);
+  --radius-card:20px;
+  --radius-pill:999px;
+  --shadow-btn:0 18px 30px -14px rgba(79,70,229,.55);
+
+  /* ---------- shadcn/ui semantic tokens, mapped to the brand ---------- */
+  --radius:1.25rem;
+  --background:#ffffff;
+  --foreground:#0F0F0F;
+  --card:#ffffff;
+  --card-foreground:#0F0F0F;
+  --popover:#ffffff;
+  --popover-foreground:#0F0F0F;
+  --primary:#4F46E5;
+  --primary-foreground:#ffffff;
+  --secondary:#F5F5F5;
+  --secondary-foreground:#101828;
+  --muted:#EEEDFD;
+  --muted-foreground:#667085;
+  --accent:#EEEDFD;
+  --accent-foreground:#201C5C;
+  --destructive:#DC2626;
+  --border:#E4E4E7;
+  --input:#E4E4E7;
+  --ring:#4F46E5;
+}
+
+/* Expose tokens to Tailwind utilities (bg-primary, text-muted-foreground, font-display ...) */
+@theme inline{
+  --color-background:var(--background);
+  --color-foreground:var(--foreground);
+  --color-card:var(--card);
+  --color-card-foreground:var(--card-foreground);
+  --color-popover:var(--popover);
+  --color-popover-foreground:var(--popover-foreground);
+  --color-primary:var(--primary);
+  --color-primary-foreground:var(--primary-foreground);
+  --color-secondary:var(--secondary);
+  --color-secondary-foreground:var(--secondary-foreground);
+  --color-muted:var(--muted);
+  --color-muted-foreground:var(--muted-foreground);
+  --color-accent:var(--accent);
+  --color-accent-foreground:var(--accent-foreground);
+  --color-destructive:var(--destructive);
+  --color-border:var(--border);
+  --color-input:var(--input);
+  --color-ring:var(--ring);
+
+  --color-indigo:var(--indigo);
+  --color-indigo-deep:var(--indigo-deep);
+  --color-lavender:var(--lavender);
+  --color-ink:var(--ink);
+  --color-ink-strong:var(--ink-strong);
+  --color-gray:var(--gray);
+
+  --radius-sm:calc(var(--radius) - 8px);
+  --radius-md:calc(var(--radius) - 4px);
+  --radius-lg:var(--radius);
+  --radius-xl:calc(var(--radius) + 4px);
+
+  --font-sans:'Archivo',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-display:'Neue Power','Archivo',system-ui,sans-serif;
+
+  --breakpoint-3xl:1728px;
+}
+
+/* ---------- Base ---------- */
+@layer base{
+  *{@apply border-border outline-ring/50}
+  *,*::before,*::after{box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--background);color:var(--foreground);font-family:var(--font-sans);font-size:18px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:var(--font-display);font-weight:500;letter-spacing:-.02em;text-wrap:balance}
+  a{color:inherit}
+  [id]{scroll-margin-top:96px}
+  :focus-visible{outline:3px solid var(--indigo);outline-offset:3px;border-radius:8px}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+}
+
+/* ---------- Page-level utilities ---------- */
+/* Centered page column: 1528px content on the 1728px design, fluid gutters below that. */
+@utility wrap{
+  width:100%;
+  max-width:calc(var(--container) + var(--gutter)*2);
+  margin-inline:auto;
+  padding-inline:var(--gutter);
+}
+/* Large section headline (Neue Power) */
+@utility section-title{
+  font-size:clamp(34px,4.2vw,64px);
+  line-height:1.12;
+}
+
+/* ---------- Motion ---------- */
+/* Scroll reveal. Only hidden when JS is running (the .js class is set in <head>), so the page works without it.
+   Use on a wrapper element, not on something that has its own hover transform/transition. */
+.js [data-reveal]{
+  opacity:0;
+  filter:blur(8px);
+  transform:translate3d(0,18px,0);
+  transition-property:opacity,filter,transform,translate,box-shadow;
+  transition-duration:var(--dur-slow),var(--dur-slow),var(--dur-slow),var(--dur-base),var(--dur-base);
+  transition-timing-function:var(--ease-out);
+  /* only the entrance is staggered; hover (translate, box-shadow) is immediate */
+  transition-delay:calc(var(--i,0) * var(--stagger,90ms)),calc(var(--i,0) * var(--stagger,90ms)),calc(var(--i,0) * var(--stagger,90ms)),0s,0s;
+  will-change:opacity,transform,filter;
+}
+.js [data-reveal="fade"]{transform:none}
+.js [data-reveal="scale"]{transform:scale(.96)}
+.js [data-reveal="left"]{transform:translate3d(-24px,0,0)}
+.js [data-reveal="right"]{transform:translate3d(24px,0,0)}
+.js [data-reveal].is-visible{opacity:1;filter:blur(0);transform:none;will-change:auto}
+/* once the entrance has finished, drop the filter entirely (cheaper, no stacking context) */
+.js [data-reveal].is-done{filter:none}
+@media (prefers-reduced-motion:reduce){
+  .js [data-reveal]{opacity:1;filter:none;transform:none;transition:none}
+}
+
+/* Page-load entrance (above the fold). Stagger with style="--i:n". */
+@keyframes rise{from{opacity:0;filter:blur(8px);transform:translate3d(0,22px,0)}to{opacity:1;filter:blur(0);transform:none}}
+@keyframes rise-right{from{opacity:0;filter:blur(10px);transform:translate3d(36px,0,0)}to{opacity:1;filter:blur(0);transform:none}}
+.rise{animation:rise var(--dur-slow) var(--ease-out) both;animation-delay:calc(80ms + var(--i,0) * 110ms)}
+.rise-right{animation:rise-right 900ms var(--ease-out) both;animation-delay:250ms}
+@media (max-width:1023px){.rise-right{animation-name:rise}}
+@media (prefers-reduced-motion:reduce){.rise,.rise-right{animation:none}}
+
+/* Illustration motion. Each plays a few times when its card scrolls into view, then rests. */
+@keyframes pv-tick{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@keyframes pv-tick-slow{from{transform:rotate(0)}to{transform:rotate(30deg)}}
+@keyframes pv-pop{0%,100%{transform:scale(1)}50%{transform:scale(1.22)}}
+@keyframes pv-glow{0%,100%{box-shadow:0 0 0 6px rgba(79,70,229,.18),0 14px 26px -8px rgba(79,70,229,.9)}50%{box-shadow:0 0 0 14px rgba(79,70,229,0),0 14px 26px -8px rgba(79,70,229,.9)}}
+.pv-hand{transform-origin:12px 12px;transform-box:view-box}
+.is-visible .pv-minute{animation:pv-tick 1.8s var(--ease-out) .6s 1 both}
+.is-visible .pv-hour{animation:pv-tick-slow 1.8s var(--ease-out) .6s 1 both}
+.is-visible .pv-badge{animation:pv-pop .9s ease-in-out 1.1s 3}
+.is-visible .pv-glow{animation:pv-glow 1.6s ease-out 1s 3}
+@media (prefers-reduced-motion:reduce){.pv-hand,.pv-badge,.pv-glow{animation:none!important}}
+
+/* Footer wordmark: faint outline + a line of light sweeping through the letters */
+.wordmark{margin:0;font-family:var(--font-display);font-weight:500;line-height:1;letter-spacing:-.04em;white-space:nowrap;text-align:center;font-size:clamp(40px,10.4vw,160px);color:transparent}
+.wordmark-base{
+  -webkit-text-stroke:1px rgba(255,255,255,.2);
+  background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,0) 85%);
+  -webkit-background-clip:text;background-clip:text;
+}
+.wordmark-glow{
+  position:absolute;inset:0;
+  -webkit-text-stroke:1.6px #DAD7FF;
+  background:linear-gradient(180deg,rgba(165,160,255,.6),rgba(165,160,255,.04));
+  -webkit-background-clip:text;background-clip:text;
+  filter:drop-shadow(0 0 9px rgba(139,130,255,.95));
+  -webkit-mask-image:radial-gradient(190px 150px at var(--mx,-999px) var(--my,-999px),#000,transparent),linear-gradient(100deg,transparent 0 47%,#000 49.6%,#000 50.4%,transparent 53% 100%);
+  mask-image:radial-gradient(190px 150px at var(--mx,-999px) var(--my,-999px),#000,transparent),linear-gradient(100deg,transparent 0 47%,#000 49.6%,#000 50.4%,transparent 53% 100%);
+  -webkit-mask-size:100% 100%,300% 100%;mask-size:100% 100%,300% 100%;
+  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
+  -webkit-mask-position:0 0,100% 0;mask-position:0 0,100% 0;
+  animation:wm-sweep 7s cubic-bezier(.45,.05,.35,.95) infinite;
+}
+@keyframes wm-sweep{
+  from{-webkit-mask-position:0 0,100% 0;mask-position:0 0,100% 0}
+  to{-webkit-mask-position:0 0,0% 0;mask-position:0 0,0% 0}
+}
+@media (prefers-reduced-motion:reduce){.wordmark-glow{animation:none}}
