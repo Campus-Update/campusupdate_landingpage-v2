@@ -1,0 +1,38 @@
+---
+import { SealCheck, UsersThree, BellRinging } from '@phosphor-icons/react';
+import { pillars } from '../data/site';
+
+// One icon per pillar, in the same order as `pillars` in site.ts.
+const icons = [SealCheck, UsersThree, BellRinging];
+---
+<section class="wrap pt-10 pb-[clamp(24px,4vw,56px)] sm:pt-14" aria-label="Why Campus Update">
+  <h2 class="sr-only">Why students and schools trust Campus Update</h2>
+  <ul
+    data-stagger="110"
+    class="grid list-none grid-cols-1 overflow-hidden rounded-[28px] bg-white p-0 shadow-[0_30px_60px_-40px_rgba(32,28,92,0.35)] ring-1 ring-[#E9E7F7] md:grid-cols-3"
+  >
+    {pillars.map((p, i) => {
+      const Icon = icons[i];
+      return (
+        <li
+          data-reveal
+          class="group/pillar relative flex items-start gap-5 border-t border-[#ECEAF8] p-6 first:border-t-0 sm:p-8 md:flex-col md:gap-7 md:border-t-0 md:border-l md:p-9 md:first:border-l-0 lg:p-11"
+        >
+          <!-- soft indigo wash that appears on hover (colour only, the frame never moves) -->
+          <span aria-hidden="true" class="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_90%_at_0%_0%,rgba(79,70,229,0.07),transparent_60%)] opacity-0 transition-opacity duration-500 group-hover/pillar:opacity-100"></span>
+
+          <span class="relative grid size-14 shrink-0 place-items-center rounded-2xl bg-lavender text-indigo transition-colors duration-300 group-hover/pillar:bg-indigo group-hover/pillar:text-white md:size-16">
+            <Icon weight="fill" class="size-7 transition-transform duration-500 ease-[var(--ease-out)] group-hover/pillar:scale-110 md:size-8" aria-hidden="true" />
+            <span class="absolute -top-1.5 -right-1.5 grid size-6 place-items-center rounded-full bg-white text-[10px] font-semibold tabular-nums text-indigo shadow ring-1 ring-[#E9E7F7]">{String(i + 1).padStart(2, '0')}</span>
+          </span>
+
+          <div class="relative">
+            <h3 class="font-display text-[clamp(26px,2.6vw,36px)] leading-none tracking-[-0.03em] text-ink">{p.label}</h3>
+            <span aria-hidden="true" class="mt-3 block h-0.5 w-8 rounded-full bg-indigo/30 transition-[width,background-color] duration-500 ease-[var(--ease-out)] group-hover/pillar:w-16 group-hover/pillar:bg-indigo"></span>
+            <p class="mt-3.5 max-w-[22em] text-[16px] leading-[1.6] text-gray md:text-[17px]">{p.text}</p>
+          </div>
+        </li>
+      );
+    })}
+  </ul>
+</section>
