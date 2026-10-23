@@ -1,6 +1,6 @@
 ---
 import {
-  XLogo, InstagramLogo, LinkedinLogo, GraduationCap, Path, Sparkle, DeviceMobile, Question,
+  XLogo, InstagramLogo, LinkedinLogo, Path, Sparkle, DeviceMobile, Question,
   RocketLaunch, Buildings, ArrowSquareOut, ShieldCheck, FileText, Cookie, ArrowUp,
 } from '@phosphor-icons/react';
 import Logo from './Logo.astro';
@@ -53,10 +53,6 @@ const year = new Date().getFullYear();
         <div class="col-span-2 lg:col-span-1">
           <Logo class="!text-white" />
           <p class="mt-5 max-w-[19em] text-[17px] leading-normal text-white/70">{site.tagline}</p>
-          <p class="mt-5 inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 text-[13px] font-medium text-white ring-1 ring-white/15">
-            <GraduationCap weight="fill" class="size-4" aria-hidden="true" />
-            Piloting at FOCIT
-          </p>
           <ul class="mt-7 flex list-none gap-3 p-0" aria-label="Social media">
             {social.map(({ label, href, Icon }) => (
               <li>
