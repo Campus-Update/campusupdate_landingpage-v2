@@ -5,7 +5,9 @@ export const site = {
   tagline: 'Verified campus news, straight from your school to your phone.',
   // TODO(decide-later): wire these to the real destinations.
   // TODO(before launch): replace with the real support inbox.
-  contactEmail: 'hello@campusupdate.com',
+  contactEmail: 'info@campusupdate.divacatech.com',
+  // Early access sign-ups are emailed here (via FormSubmit unless PUBLIC_FORM_ENDPOINT is set).
+  formEmail: 'info@campusupdate.divacatech.com',
   links: {
     app: '#',            // "Go to app"
     earlyAccess: '#early-access',    // "Get early access" → scrolls to the sign-up section

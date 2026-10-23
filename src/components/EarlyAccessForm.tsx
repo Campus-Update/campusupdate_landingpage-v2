@@ -4,12 +4,14 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { cn } from '@/lib/utils';
+import { site } from '@/data/site';
 
 const ROLES = ['Student', 'Staff', 'School admin'] as const;
 type Status = 'idle' | 'submitting' | 'success' | 'error' | 'not-connected';
 
-// TODO(decide-later): set PUBLIC_FORM_ENDPOINT (Formspree URL, serverless route, etc.). See .env.example.
-const ENDPOINT = import.meta.env.PUBLIC_FORM_ENDPOINT as string | undefined;
+// Sign-ups are emailed to site.formEmail through FormSubmit. To use another service (Formspree, your own API),
+// set PUBLIC_FORM_ENDPOINT. See .env.example.
+const ENDPOINT = (import.meta.env.PUBLIC_FORM_ENDPOINT as string | undefined) || `https://formsubmit.co/ajax/${site.formEmail}`;
 
 export default function EarlyAccessForm() {
   const [role, setRole] = React.useState<(typeof ROLES)[number]>('Student');
@@ -20,16 +22,22 @@ export default function EarlyAccessForm() {
     const form = e.currentTarget;
     const data = Object.fromEntries(new FormData(form)) as Record<string, string>;
 
-    if (!ENDPOINT) {
-      setStatus('not-connected');
-      return;
-    }
+    if (data._honey) { setStatus('success'); return; } // bots fill the hidden field
     setStatus('submitting');
     try {
       const res = await fetch(ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({ role, name: data.name, email: data.email, source: 'landing-early-access' }),
+        body: JSON.stringify({
+          _subject: `Campus Update early access: ${data.name} (${role})`,
+          _template: 'table',
+          _captcha: 'false',
+          _honey: data._honey ?? '',
+          role,
+          name: data.name,
+          email: data.email,
+          source: 'landing-early-access',
+        }),
       });
       if (!res.ok) throw new Error(String(res.status));
       form.reset();
@@ -51,6 +59,7 @@ export default function EarlyAccessForm() {
 
   return (
     <form onSubmit={onSubmit} noValidate={false} className="grid gap-5" aria-describedby="ea-status">
+      <input type="text" name="_honey" tabIndex={-1} autoComplete="off" aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 opacity-0" />
       <fieldset className="grid gap-2.5">
         <legend className="mb-2.5 text-sm font-medium text-ink-strong">I am a</legend>
         <RadioGroup value={role} onValueChange={(v) => setRole(v as typeof role)} className="grid-cols-1 gap-2.5 sm:grid-cols-3" aria-label="I am a">
