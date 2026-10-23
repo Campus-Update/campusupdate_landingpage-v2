@@ -1,4 +1,4 @@
-import { ArrowRight, ArrowUpRight, GraduationCap, Path, Question, SquaresFour, TextAlignRight } from '@phosphor-icons/react';
+import { ArrowRight, ArrowUpRight, Path, Question, SquaresFour, TextAlignRight } from '@phosphor-icons/react';
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { buttonVariants } from '@/components/ui/button';
 
@@ -59,10 +59,6 @@ export default function MobileNav({ links, appHref, earlyAccessHref = '/#early-a
         </nav>
 
         <div className="relative mt-auto grid gap-3 p-4">
-          <div className="flex items-center gap-3 rounded-2xl bg-lavender px-4 py-3.5">
-            <GraduationCap weight="fill" className="size-6 shrink-0 text-indigo" aria-hidden="true" />
-            <p className="m-0 text-[14px] leading-snug text-ink-strong">Piloting at FOCIT. Be among the first schools on Campus Update.</p>
-          </div>
           <SheetClose asChild>
             <a href={earlyAccessHref} className={buttonVariants({ variant: 'soft', size: 'lg' }) + ' w-full'}>
               Get early access

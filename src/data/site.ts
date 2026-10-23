@@ -16,7 +16,7 @@ export const site = {
     // Store pages. Leave null until the app is live - the buttons then show "Coming soon".
     appStore: null as string | null,
     playStore: null as string | null,
-    x: '#',
+    x: 'https://x.com/_campusupdate',
     instagram: 'https://www.instagram.com/divacacampusupdate/',
     linkedin: 'https://www.linkedin.com/company/campus-update/',
   },

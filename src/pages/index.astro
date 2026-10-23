@@ -23,7 +23,7 @@ const jsonLd = {
       url: origin,
       logo: `${origin}/logo-mark.svg`,
       description: site.tagline,
-      sameAs: [site.links.instagram, site.links.linkedin].filter((l) => l && l !== '#'),
+      sameAs: [site.links.x, site.links.instagram, site.links.linkedin].filter((l) => l && l !== '#'),
     },
     { '@type': 'WebSite', name: site.name, url: origin },
     {
